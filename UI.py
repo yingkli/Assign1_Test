@@ -138,22 +138,23 @@ class BMI_app:
         ########
         # new frame ask for BMI comparison with CDC
         ########
-        compFrame = ttk.Frame(tab)
-        compFrame.pack(anchor = "w")
-        ttk.Label(compFrame, text = f"Your BMI is {self.BMI}").pack(pady = 5, anchor = "w")
+        #compFrame = ttk.Frame(tab)
+        self.compFrame = tk.Toplevel(self.master)
+        self.compFrame.geometry("500x500")
+        ttk.Label(self.compFrame, text = f"Your BMI is {self.BMI}").pack(pady = 5, anchor = "w")
         self.end = time.time()
         time_lapsed = (self.end - self.start) * 1000
-        ttk.Label(compFrame, text = f"App response time is {time_lapsed} in ms").pack(pady = (20, 0), anchor = "w")
+        ttk.Label(self.compFrame, text = f"App response time is {time_lapsed} in ms").pack(pady = (20, 0), anchor = "w")
         # compare to CDC standard
-        ttk.Label(compFrame, text = "Compare your BMI with CDC standard to see if your weight is healthy").pack(pady = (20, 0), anchor = "w")
-        ttk.Label(compFrame, text = "Note: A new window will open.").pack(anchor = "w")
-        ttk.Button(compFrame, text = "Weight Status", command = self.show_BMI_std).pack(pady = 5, anchor = "w")
+        ttk.Label(self.compFrame, text = "Compare your BMI with CDC standard to see if your weight is healthy").pack(pady = (20, 0), anchor = "w")
+        ttk.Label(self.compFrame, text = "Note: A new window will open.").pack(anchor = "w")
+        ttk.Button(self.compFrame, text = "Weight Status", command = self.show_BMI_std).pack(pady = 5, anchor = "w")
 
     def show_BMI_std(self):
         ########
         # compare BMI with CDC standard
         ########
-        newWindow = tk.Toplevel(self.master)
+        newWindow = tk.Toplevel(self.compFrame)
         newWindow.geometry("500x500") 
         w_status = "NA"
         # compare BMI with CDC standard
