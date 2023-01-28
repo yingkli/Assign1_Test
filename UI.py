@@ -1,6 +1,7 @@
 import tkinter as tk                    
 from tkinter import ttk, messagebox
 import webbrowser
+import time
 
 class BMI_app:
     def __init__(self, master):
@@ -101,6 +102,7 @@ class BMI_app:
         # 2. calculate BMI and show BMI
         # 3. offer option to compare to CDC standard
         ##########
+        self.start = time.time()
         try:
             float(self.weight1.get()) or float(self.height1.get())  # valid input
             w_kg = float(self.weight1.get())           # convert string to number
@@ -120,6 +122,7 @@ class BMI_app:
         # 1. check if input is valid
         # 2. calculate BMI and show BMI
         # 3. offer option to compare to CDC
+        self.start = time.time()
         try:
             float(self.weight2.get()) or float(self.height2_1.get()) or float(self.height2_2.get())
             w_lb = float(self.weight2.get())
@@ -138,6 +141,9 @@ class BMI_app:
         compFrame = ttk.Frame(tab)
         compFrame.pack(anchor = "w")
         ttk.Label(compFrame, text = f"Your BMI is {self.BMI}").pack(pady = 5, anchor = "w")
+        self.end = time.time()
+        time_lapsed = (self.end - self.start) * 1000
+        ttk.Label(compFrame, text = f"App response time is {time_lapsed} in ms").pack(pady = (20, 0), anchor = "w")
         # compare to CDC standard
         ttk.Label(compFrame, text = "Compare your BMI with CDC standard to see if your weight is healthy").pack(pady = (20, 0), anchor = "w")
         ttk.Label(compFrame, text = "Note: A new window will open.").pack(anchor = "w")
@@ -224,5 +230,6 @@ class BMI_app:
         self.x.grid(row = 5, column = 1, padx = 5, pady = 5)
 
 root = tk.Tk()
+
 BMI_app(root)
 root.mainloop()
